@@ -3,7 +3,8 @@ spring:
     name: gateway-service
   cloud:
     gateway:
-      routes:
+      mvc:
+        routes:
         - id: book-service
           uri: lb://book-service
           predicates:
@@ -12,11 +13,9 @@ spring:
           uri: lb://library-service
           predicates:
             - Path=/v1/library/**
-      discovery:
-        locator:
-          enabled: true
-  zipkin:
-    base-url: http://localhost:9411
+
+#  zipkin:
+#    base-url: http://localhost:9411
 
 server:
   port: 8889
@@ -35,7 +34,4 @@ management:
       exposure:
         include: "*"
         exclude: info
-
-
-
 

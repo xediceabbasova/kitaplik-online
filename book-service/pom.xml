@@ -27,26 +27,45 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-    </dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
+        <!-- Zipkin -->
+        <!--        <dependency>-->
+        <!--            <groupId>io.micrometer</groupId>-->
+        <!--            <artifactId>micrometer-tracing-bridge-brave</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.zipkin.reporter2</groupId>-->
+        <!--            <artifactId>zipkin-reporter-brave</artifactId>-->
+        <!--        </dependency>-->
+
+
+        <!-- gRPC -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-            <version>3.1.10</version>
+            <groupId>com.kitaplik</groupId>
+            <artifactId>kitaplik-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-sleuth-zipkin</artifactId>
-            <version>3.1.10</version>
+            <groupId>net.devh</groupId>
+            <artifactId>grpc-spring-boot-starter</artifactId>
+            <version>2.14.0.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.grpc</groupId>
+                    <artifactId>grpc-netty-shaded</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
 
         <!-- Kotlin -->
         <dependency>
@@ -81,6 +100,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.devh</groupId>
+            <artifactId>grpc-server-spring-boot-autoconfigure</artifactId>
+            <version>2.14.0.RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <dependencyManagement>

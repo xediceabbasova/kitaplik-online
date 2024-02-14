@@ -1,0 +1,16 @@
+syntax = "proto3"; // syntax -> hansi versiya istifade olunacaq
+option java_multiple_files = true; // bu dosya icinde birden cox grpc modeli, service-i yaza bilerik
+package com.kitaplik.bookservice;
+
+message BookId{// message -> obyekt tanimlamasi, response
+  string bookId = 1;
+  string isbn = 2; //grpc constructor yaradir. 1 2 yazdigimiza gore 1ci parametr bookId 2 cisi isbn olur.
+}
+
+message Isbn{//request
+  string isbn = 1;
+}
+
+service BookService{
+  rpc getBookIdByIsbn(Isbn) returns (BookId);
+}

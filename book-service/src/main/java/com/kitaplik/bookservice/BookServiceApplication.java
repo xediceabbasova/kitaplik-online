@@ -2,13 +2,18 @@ package com.kitaplik.bookservice;
 
 import com.kitaplik.bookservice.model.Book;
 import com.kitaplik.bookservice.repository.BookRepository;
+import io.grpc.netty.shaded.io.grpc.netty.NettyServerBuilder;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import net.devh.boot.grpc.server.serverfactory.GrpcServerConfigurer;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -34,5 +39,15 @@ public class BookServiceApplication implements CommandLineRunner {
 
         System.out.println(bookList);
 
+    }
+
+    @Bean
+    public GrpcServerConfigurer keepAliveServerConfigurer() {
+        return serverBuilder -> {
+            if (serverBuilder instanceof NettyServerBuilder) {
+                ((NettyServerBuilder) serverBuilder).keepAliveTime(30, TimeUnit.SECONDS)
+                        .keepAliveTimeout(5, TimeUnit.SECONDS).permitKeepAliveWithoutCalls(true);
+            }
+        };
     }
 }

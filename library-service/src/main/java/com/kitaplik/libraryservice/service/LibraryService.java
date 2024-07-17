@@ -29,8 +29,23 @@ public class LibraryService {
     }
 
     public LibraryDto getAllBooksInLibraryById(String id) {
-        Library library = libraryRepository.findById(id)
-                .orElseThrow(() -> new LibraryNotFoundException("Library could not found by id: " + id));
+
+        Library library = getLibraryById(id);
+//
+//        String libraryId = library.getId();
+//        List<BookDto> bookDtoList = new ArrayList<>();
+//
+//        //test ucun
+//        if (library.getUserBook().size() > 2) {
+//            libraryId += library.getUserBook().size();
+//        }
+//
+//        for (String bookId : library.getUserBook()) {
+//            BookDto bookDto = bookServiceClient.getBookById(bookId).getBody();
+//            bookDtoList.add(bookDto);
+//        }
+//
+//        LibraryDto libraryDto = new LibraryDto(libraryId, bookDtoList);
 
         LibraryDto libraryDto = new LibraryDto(
                 library.getId(),
@@ -40,6 +55,12 @@ public class LibraryService {
                         .collect(Collectors.toList()));
 
         return libraryDto;
+    }
+
+    private Library getLibraryById(String id) {
+        return libraryRepository.findById(id)
+                .orElseThrow(() -> new LibraryNotFoundException("Library could not found by id: " + id));
+
     }
 
     public LibraryDto createLibrary() {
